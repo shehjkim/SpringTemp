@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-5.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+<context:component-scan base-package="com.company" >
+	<context:include-filter type="annotation" expression="repository"/>
+	<context:include-filter type="annotation" expression="service"/>
+	<context:exclude-filter type="annotation" expression="controller"/>
+</context:component-scan>
+
+
+<!-- security -->
+	<security:http pattern="/css/**" security="none" />
+	<security:http>
+		<security:intercept-url pattern="/loginForm" access="permitAll()" />
+		<security:intercept-url pattern="/top" access="permitAll()" />			<!-- 모든권한가진사람만 top -->
+		<security:intercept-url pattern="/admin/**" access="hasAuthority('ROLE_ADMIN')" />	<!-- admin권한 가진사람만 -->
+		<security:intercept-url pattern="/**" access="isAuthenticated()" />
+		<security:form-login default-target-url="/top"
+							login-page="/loginForm"
+							login-processing-url="/login"
+							username-parameter="id"
+							password-parameter="password" />
+		<security:logout logout-url="/logout" logout-success-url="/top" />
+		<security:csrf disabled="true" />	<!-- web보안이랑 관련된거 -->
+	</security:http>
+	<security:authentication-manager>
+		<security:authentication-provider user-service-ref="userService">
+		
+			<!-- <security:jdbc-user-service data-source-ref="dataSource"
+				users-by-username-query
+				="SELECT ID, PASSWORD, 1
+				FROM USERS
+				WHERE ID=?"				
+				authorities-by-username-query
+				="SELECT ID, 'ROLE_' || upper(ROLE)
+				FROM USERS
+				WHERE ID=?"
+			/>
+			 -->
+			 <security:password-encoder hash="bcrypt"/>	<!-- pw 암호화 시키는것  -->
+
+			
+		</security:authentication-provider>
+	</security:authentication-manager>
+</beans>

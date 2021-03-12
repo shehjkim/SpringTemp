@@ -20,7 +20,7 @@
 	<!-- MapperConfigurer setup for MyBatis Database Layer with @MapperScan("boardMapper") 
 		in BoardMapper Interface -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.yedam.**.impl" /> <!-- 검색할 경로 --> <!-- com.yedam으로 시작하고 impl로 끝나는 것들을 검색? -->
+		<property name="basePackage" value="com.company.**.impl" /> <!-- 검색할 경로 --> <!-- com.yedam으로 시작하고 impl로 끝나는 것들을 검색? -->
 	</bean>
 
 </beans>

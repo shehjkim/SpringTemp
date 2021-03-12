@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.temp.user.service.impl.UserMapper">
+	<!-- 단건 조회 -->
+	<select id="getUser" parameterType="UserVO" resultType="UserVO">
+		SELECT ID
+				,PASSWORD
+				,NAME
+				,ROLE
+		FROM USERS
+		WHERE ID=#{id}
+	</select>
+	
+	<!-- 전체 조회 -->
+	<select id="getSearchUser" parameterType="UserVO" resultType="UserVO">
+		SELECT ID
+				,PASSWORD
+				,NAME
+				,ROLE
+		FROM USERS
+		ORDER BY ID DESC
+	</select>
+	
+	<!-- 등록 -->
+	<insert id="insertUser" parameterType="UserVO">
+		INSERT INTO USERS (ID
+							,PASSWORD
+							,NAME
+							,ROLE)
+					VALUES(#{id},
+							#{password},
+							#{name},
+							#{role})	
+	</insert>
+	
+	<!-- 수정 -->
+	<update id="updateUser" parameterType="UserVO">
+		UPDATE USERS SET ID = #{id}
+						,PASSWORD = #{password}
+						,NAME = #{name}
+						,ROLE = #{role}
+					WHERE ID = #{id}
+	</update>
+	
+	<!-- 삭제 -->
+	<delete id="deleteUser" parameterType="UserVO">
+		DELETE FROM USERS
+		WHERE ID = #{id} 
+	</delete>
+	
+	
+
+</mapper>

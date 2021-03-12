@@ -35,5 +35,26 @@ public class HomeController {
 		
 		return "home";
 	}
+
+	@RequestMapping("/user/user")
+	public String user() {
+		return "user/user";
+	}
+	
+	@RequestMapping("/admin/admin")
+	public String admin() {
+		return "admin/admin";
+	}
+	
+	@RequestMapping("/top")
+	public String top() {
+		return "top";	//top은 폴더에 안들어가있기때문에 
+	}
+	
+	@RequestMapping("/loginForm")
+	public String loginForm() {
+		return "user/login";
+	}
+
 	
 }
